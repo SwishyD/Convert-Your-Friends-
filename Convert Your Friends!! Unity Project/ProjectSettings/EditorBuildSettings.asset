@@ -6,6 +6,9 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Scenes/SampleScene.unity
-    guid: 99c9720ab356a0642a771bea13969a05
+    path: Assets/_Scenes/MainMenu.unity
+    guid: 0731a1d491dbfc8429810066c74fab0e
+  - enabled: 1
+    path: Assets/_Scenes/CodySandBox.unity
+    guid: e2f00c88f209c8745b30498dbfb142e8
   m_configObjects: {}
