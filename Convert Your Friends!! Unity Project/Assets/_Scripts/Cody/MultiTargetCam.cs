@@ -54,7 +54,7 @@ public class MultiTargetCam : MonoBehaviour {
         {
             bounds.Encapsulate(targets[i].position);
         }
-        return bounds.size;
+        return bounds.size.x;
     }
 
     Vector3 GetCenterPoint()
