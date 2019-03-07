@@ -1,8 +1,9 @@
-﻿using UnityEngine;
-using System.Collections;
+﻿using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
 
-public class CharacterMovement : MonoBehaviour
-{
+public class NPCMovement : MonoBehaviour {
+
     public float force = 25;
     public float facingForce = 50;
     protected CharacterInput input;
@@ -34,17 +35,13 @@ public class CharacterMovement : MonoBehaviour
     //
     void Start()
     {
-        input = GetComponent<CharacterInput>();
+        //input = GetComponent<CharacterInput>();
     }
     //
     void Update()
     {
         //
-        if (input.PressFire())
-        {
-            if(!inAir)
-            StartJumpAnticipation();
-        }
+        
         if (getUpCounter > 0)
         {
             getUpCounter -= Time.deltaTime;
@@ -56,16 +53,7 @@ public class CharacterMovement : MonoBehaviour
                 h.desiredHeight = Mathf.Lerp(h.desiredHeight, 0.2f, Time.deltaTime * 3);
             }
         }
-        if (jumpAnticipation)
-        {
-            //***********************************  CROUCHING BEFORE JUMP **********************
-            //
-            jumpCounter += Time.deltaTime;
-            if (jumpCounter >= jumpDelay)
-            {
-                Jump();
-            }
-        }
+        
         else if (inAir)
         {
             //***********************************  AIR BORNE **********************
@@ -82,51 +70,8 @@ public class CharacterMovement : MonoBehaviour
             //***********************************  STANDING ON GROUND **********************
             //           
             inputDirection = Vector3.zero;
-            if (input.HoldRight())
-            {
-                inputDirection += Vector3.right;
-            }
-            if (input.HoldLeft())
-            {
-                inputDirection += Vector3.left;
-            }
-            if (input.HoldUp())
-            {
-                inputDirection += Vector3.forward;
-            }
-            if (input.HoldDown())
-            {
-                inputDirection += Vector3.back;
-            }
-            if (inputDirection != Vector3.zero)
-            {
-                // *** MOVE BASED ON INPUT DIRECTION ****
-                //
-                inputDirection.Normalize();
-                //               
-                currentFacing = chestBody.transform.forward;
-                currentFacing.y = 0;
-                currentFacing.Normalize();
-                //
-                if (!legs.walking)
-                {
-                    legs.StartWalking();
-                }
-                //
-                faceDirection.facingDirection = inputDirection;
-                //
-            }
-            else
-            {
-                // *** STAND STILL WHEN ZERO INPUT ****
-                //
-                faceDirection.facingDirection = currentFacing;
-                //
-                if (legs.walking)
-                {
-                    legs.StopWalking();
-                }
-            }
+            faceDirection.facingDirection = inputDirection;
+            legs.StartWalking();
         }
     }
 
