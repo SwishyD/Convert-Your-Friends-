@@ -4,13 +4,13 @@ using UnityEngine;
 
 public class NPCController : MonoBehaviour {
 
-    public float hitForce;
+    private float hitForce;
     Rigidbody rb;
-
+    public NPCMovement npcMove;
 
     void Start () {
         rb = GetComponent<Rigidbody>();
-        hitForce = 1000;
+        hitForce = 5000;
 	}
 	
 	// Update is called once per frame
@@ -20,11 +20,16 @@ public class NPCController : MonoBehaviour {
 
     private void OnCollisionEnter(Collision col)
     {
-        if(col.gameObject.tag == "Player1" || col.gameObject.tag == "Player2")
+        if(col.gameObject.tag == "Player1" || col.gameObject.tag == "Player2" || col.gameObject.tag == "Player")
         {
-            Vector3 dir = col.contacts[0].point - transform.position;
-            dir = -dir.normalized;
-            rb.AddForce(dir * hitForce);
+            Debug.Log("Collided");
+            //Vector3 dir = col.contacts[0].point - transform.position;
+            //dir = -dir.normalized;
+            npcMove.ragdoll = true;
+            //rb.AddForce(dir * hitForce);
+            rb.AddForce(Vector3.up * 5000);
+            rb.AddForce(col.gameObject.transform.forward * hitForce);
+            
         }
     }
 }

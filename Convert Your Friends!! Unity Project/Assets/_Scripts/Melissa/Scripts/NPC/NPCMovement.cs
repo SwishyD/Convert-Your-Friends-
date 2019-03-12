@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class NPCMovement : MonoBehaviour {
 
@@ -27,15 +28,31 @@ public class NPCMovement : MonoBehaviour {
     public float airTimeDelay = 2;
     protected bool jumpAnticipation = false;
     protected bool inAir = false;
+    public bool ragdoll;
     public float jumpForce = 100;
     public float jumpForwardForce = 50;
     public float jumpDownForce = 250;
     protected float facePlantM = 1;
     protected float getUpCounter = 0;
+
+    public NavMeshAgent nav;
+    public Transform[] waypoints = new Transform[5];
+    Vector3 destination;
+    Vector3[] path;
+    int currentPathPos;
+    public Transform npcHips;
+    public Rigidbody hipsRB;
+    float distRemaining;
+    float destinationTimer;
     //
     void Start()
     {
         //input = GetComponent<CharacterInput>();
+        nav = GetComponent<NavMeshAgent>();
+        nav.updatePosition = false;
+        nav.updateRotation = false;
+        ragdoll = false;
+        SetPath();
     }
     //
     void Update()
@@ -53,7 +70,12 @@ public class NPCMovement : MonoBehaviour {
                 h.desiredHeight = Mathf.Lerp(h.desiredHeight, 0.2f, Time.deltaTime * 3);
             }
         }
-        
+        if (ragdoll)
+        {
+            //***********************************  CROUCHING BEFORE JUMP **********************
+            //
+            StartRagdoll();
+        }
         else if (inAir)
         {
             //***********************************  AIR BORNE **********************
@@ -68,17 +90,97 @@ public class NPCMovement : MonoBehaviour {
         else
         {
             //***********************************  STANDING ON GROUND **********************
-            //           
+            /*nav.nextPosition = npcHips.position;
+            if (Vector3.Distance(nav.destination, nav.nextPosition) <= 0.1f)
+            {
+                SetPath();
+            }
+            
+            
+                distRemaining = Vector3.Distance(path[currentPathPos], nav.nextPosition);
+
+        */
+
+            /*if (Vector3.Distance(npcHips.position, nav.nextPosition) <= 0.5)
+            {
+                if (Vector3.Distance(npcHips.position, nav.destination) <= 0.5)
+                {
+                    SetPath();
+                }
+                else
+                {
+                    currentPathPos++;
+                    nav.nextPosition = path[currentPathPos];
+                }
+            }
+            */
+
+            destinationTimer += Time.deltaTime;
+            if (destinationTimer >= 6)
+            {
+                SetPath();
+            }
+
             inputDirection = Vector3.zero;
-            faceDirection.facingDirection = inputDirection;
-            legs.StartWalking();
+
+                inputDirection += nav.desiredVelocity;
+                inputDirection.Normalize();
+
+                currentFacing = chestBody.transform.forward;
+                currentFacing.y = 0;
+                currentFacing.Normalize();
+
+                if (!legs.walking)
+                {
+                    legs.StartWalking();
+                }
+
+                
+                faceDirection.facingDirection = inputDirection;
+
+            nav.nextPosition = npcHips.transform.position;
+            if (nav.remainingDistance <= 0.2)
+                SetPath();
+            /*
+            if (distRemaining <= 0.2)
+                {
+                    currentPathPos++;
+                }
+                
+                if (path[currentPathPos] != null)
+                {
+                    nav.nextPosition = path[currentPathPos];
+                }
+                else
+                {
+                    nav.nextPosition = nav.destination;
+                }
+                if (Vector3.Distance(npcHips.position, nav.nextPosition) <= 0.5f)
+                {
+                    currentPathPos++;
+                }
+                */
+
+
         }
+    }
+
+    private void SetPath()
+    {
+        int nextWaypoint = Random.Range(0, waypoints.Length-1);
+        destination = waypoints[nextWaypoint].position;
+        nav.SetDestination(destination);
+        path = nav.path.corners;
+        //Debug.Log(path.Length);
+        currentPathPos = 0;
+        destinationTimer = 0;
+        
     }
 
     private void GetUpFromJump()
     {
         // ***********************  STAND UP AFTER BEING A RAGDOLL *******
-        //
+        
         foreach (CharacterMaintainHeight h in otherMaintainHeight)
         {
             h.enabled = true;
@@ -146,6 +248,18 @@ public class NPCMovement : MonoBehaviour {
         jumpAnticipation = true;
         maintainHeight.desiredHeight = maintainHeightCrouching;
         jumpCounter = 0;
+    }
+
+    private void StartRagdoll()
+    {
+        maintainHeight.enabled = false;
+        jumpCounter = 0;
+        jumpAnticipation = false;
+        ragdoll = false;
+        inAir = true;
+        legs.enabled = false;
+        chestUpright.enabled = false;
+        faceDirection.enabled = false;
     }
     //
     void FixedUpdate()

@@ -25,7 +25,7 @@ public class P2Hit : MonoBehaviour {
         {
             Vector3 dir = col.contacts[0].point - transform.position;
             dir = -dir.normalized;
-            rb.AddForce(dir * hitForce);
+            col.gameObject.GetComponent<Rigidbody>().AddForce(dir * hitForce);
         }
     }
 }
