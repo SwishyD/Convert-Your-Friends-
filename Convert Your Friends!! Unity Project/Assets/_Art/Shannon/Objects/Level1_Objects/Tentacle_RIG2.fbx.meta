@@ -1,17 +1,38 @@
 fileFormatVersion: 2
-guid: 027ea897d1bf4dc4ca51d8c8dde42be3
+guid: ded1f0201fca28946a20ab498601b5ec
 ModelImporter:
   serializedVersion: 22
   fileIDToRecycleName:
-    100000: //RootNode
-    100002: Tenticle_Rigged_group
-    400000: //RootNode
-    400002: Tenticle_Rigged_group
-    2100000: Tenticle_Rigged_groupMat
-    2300000: Tenticle_Rigged_group
-    3300000: Tenticle_Rigged_group
-    4300000: Tenticle_Rigged_group
+    100000: A
+    100002: A_ctrl
+    100004: B
+    100006: B_ctrl
+    100008: C
+    100010: C_ctrl
+    100012: End_JNT
+    100014: group
+    100016: //RootNode
+    100018: Tenticle_Rigged
+    100020: TenticleBase_JNT
+    100022: transform1
+    100024: World_Ctrl
+    400000: A
+    400002: A_ctrl
+    400004: B
+    400006: B_ctrl
+    400008: C
+    400010: C_ctrl
+    400012: End_JNT
+    400014: group
+    400016: //RootNode
+    400018: Tenticle_Rigged
+    400020: TenticleBase_JNT
+    400022: transform1
+    400024: World_Ctrl
+    2100000: lambert1
+    4300000: Tenticle_Rigged
     9500000: //RootNode
+    13700000: Tenticle_Rigged
   externalObjects: {}
   materials:
     importMaterials: 1
@@ -32,7 +53,7 @@ ModelImporter:
     animationDoRetargetingWarnings: 0
     importAnimatedCustomProperties: 0
     importConstraints: 0
-    animationCompression: 3
+    animationCompression: 1
     animationRotationError: 0.5
     animationPositionError: 0.5
     animationScaleError: 0.5
@@ -81,7 +102,7 @@ ModelImporter:
     armStretch: 0.05
     legStretch: 0.05
     feetSpacing: 0
-    rootMotionBoneName: Tenticle_Rigged_group
+    rootMotionBoneName: 
     rootMotionBoneRotation: {x: 0, y: 0, z: 0, w: 1}
     hasTranslationDoF: 0
     hasExtraRoot: 0
