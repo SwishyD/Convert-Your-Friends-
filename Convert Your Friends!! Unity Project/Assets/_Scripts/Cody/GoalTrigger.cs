@@ -5,6 +5,9 @@ using UnityEngine;
 public class GoalTrigger : MonoBehaviour {
 
     public bool player1Goal;
+    public bool killBox;
+
+    public NPCMovement npcMove;
 
     public GameObject[] p1Particles;
     public GameObject[] p2Particles;
@@ -13,7 +16,7 @@ public class GoalTrigger : MonoBehaviour {
     private void OnTriggerEnter(Collider col)
     { 
         //When an NPC gets pushed into a pit//
-        if(col.gameObject.tag == "NPC" && player1Goal)
+        if(col.gameObject.tag == "NPC" && player1Goal && !killBox)
         {
 
             for (int i = 0; i < p1Particles.Length; i++)
@@ -21,20 +24,20 @@ public class GoalTrigger : MonoBehaviour {
                 p1Particles[i].GetComponent<ParticleSystem>().Play();
             }
             GameManager.instance.P1Goal();
-            col.transform.position = npcResPoint.position;
+            NpcRes(col);
         }
-        else if (col.gameObject.tag == "NPC" && !player1Goal)
+        if (col.gameObject.tag == "NPC" && !player1Goal && !killBox)
         {
             for (int i = 0; i < p2Particles.Length; i++)
             {
                 p2Particles[i].GetComponent<ParticleSystem>().Play();
             }
             GameManager.instance.P2Goal();
-            col.transform.position = npcResPoint.position;
+            NpcRes(col);
         }
 
         //If players fall into pits//
-        if(col.gameObject.tag == "Player1" && !player1Goal)
+        if(col.gameObject.tag == "Player1" && !player1Goal && !killBox)
         {
             for (int i = 0; i < p2Particles.Length; i++)
             {
@@ -42,7 +45,7 @@ public class GoalTrigger : MonoBehaviour {
             }
             GameManager.instance.Player2Sacrifice();
         }
-        else if (col.gameObject.tag == "Player1" && player1Goal)
+        if (col.gameObject.tag == "Player1" && player1Goal && !killBox)
         {
             for (int i = 0; i < p1Particles.Length; i++)
             {
@@ -50,7 +53,7 @@ public class GoalTrigger : MonoBehaviour {
             }
             GameManager.instance.RespawnP1();
         }
-        if (col.gameObject.tag == "Player2" && player1Goal)
+        if (col.gameObject.tag == "Player2" && player1Goal && !killBox)
         {
             for (int i = 0; i < p1Particles.Length; i++)
             {
@@ -58,7 +61,7 @@ public class GoalTrigger : MonoBehaviour {
             }
             GameManager.instance.Player1Sacrifice();
         }
-        else if (col.gameObject.tag == "Player2" && !player1Goal)
+        if (col.gameObject.tag == "Player2" && !player1Goal && !killBox)
         {
             for (int i = 0; i < p2Particles.Length; i++)
             {
@@ -66,5 +69,25 @@ public class GoalTrigger : MonoBehaviour {
             }
             GameManager.instance.RespawnP2();
         }
+
+        if(col.gameObject.tag == "NPC" && killBox)
+        {
+            NpcRes(col);
+        }
+        if (col.gameObject.tag == "Player1" && killBox)
+        {
+            GameManager.instance.RespawnP1();
+        }
+        if (col.gameObject.tag == "Player2" && killBox)
+        {
+            GameManager.instance.RespawnP2();
+        }
+
+       
+    }
+    public void NpcRes(Collider col)
+    {
+        col.gameObject.GetComponent<NPCMovement>().ragdoll = true;
+        col.transform.position = npcResPoint.position;
     }
 }
