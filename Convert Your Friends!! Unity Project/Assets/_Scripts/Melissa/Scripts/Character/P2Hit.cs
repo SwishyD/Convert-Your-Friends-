@@ -10,7 +10,7 @@ public class P2Hit : MonoBehaviour {
     void Start()
     {
         rb = GetComponent<Rigidbody>();
-        hitForce = 10000;
+        hitForce = 100;
     }
 
     // Update is called once per frame
