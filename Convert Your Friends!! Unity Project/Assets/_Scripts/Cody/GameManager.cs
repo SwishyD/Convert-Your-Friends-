@@ -18,7 +18,7 @@ public class GameManager : MonoBehaviour {
     public Transform p1ResPoint;
     public Transform p2ResPoint;
 
-
+   
     //Time//
     float currentTime;
     float totalTime = 60;
