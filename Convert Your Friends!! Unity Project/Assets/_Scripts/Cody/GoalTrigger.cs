@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class GoalTrigger : MonoBehaviour {
 
+    public CameraShake cameraShake;
+
     public bool player1Goal;
     public bool killBox;
 
@@ -22,6 +24,7 @@ public class GoalTrigger : MonoBehaviour {
             for (int i = 0; i < p1Particles.Length; i++)
             {
                 p1Particles[i].GetComponent<ParticleSystem>().Play();
+                StartCoroutine(cameraShake.Shake(.15f, .4f));
             }
             GameManager.instance.P1Goal();
             NpcRes(col);
@@ -31,6 +34,7 @@ public class GoalTrigger : MonoBehaviour {
             for (int i = 0; i < p2Particles.Length; i++)
             {
                 p2Particles[i].GetComponent<ParticleSystem>().Play();
+                StartCoroutine(cameraShake.Shake(.15f, .4f));
             }
             GameManager.instance.P2Goal();
             NpcRes(col);
@@ -42,6 +46,7 @@ public class GoalTrigger : MonoBehaviour {
             for (int i = 0; i < p2Particles.Length; i++)
             {
                 p2Particles[i].GetComponent<ParticleSystem>().Play();
+                StartCoroutine(cameraShake.Shake(.15f, .4f));
             }
             GameManager.instance.Player2Sacrifice();
         }
@@ -50,6 +55,7 @@ public class GoalTrigger : MonoBehaviour {
             for (int i = 0; i < p1Particles.Length; i++)
             {
                 p1Particles[i].GetComponent<ParticleSystem>().Play();
+                StartCoroutine(cameraShake.Shake(.15f, .4f));
             }
             GameManager.instance.RespawnP1();
         }
@@ -58,6 +64,7 @@ public class GoalTrigger : MonoBehaviour {
             for (int i = 0; i < p1Particles.Length; i++)
             {
                 p1Particles[i].GetComponent<ParticleSystem>().Play();
+                StartCoroutine(cameraShake.Shake(.15f, .4f));
             }
             GameManager.instance.Player1Sacrifice();
         }
@@ -66,6 +73,7 @@ public class GoalTrigger : MonoBehaviour {
             for (int i = 0; i < p2Particles.Length; i++)
             {
                 p2Particles[i].GetComponent<ParticleSystem>().Play();
+                StartCoroutine(cameraShake.Shake(.15f, .4f));
             }
             GameManager.instance.RespawnP2();
         }
