@@ -12,6 +12,7 @@ public class NPCController : MonoBehaviour {
     bool held;
     public NavMeshAgent navAgent;
     public GameObject[] hit;
+    CharacterJoint charHand;
     
 
     void Start () {
@@ -50,10 +51,13 @@ public class NPCController : MonoBehaviour {
         {
             if (other.tag == "HandJoint")
             {
-                CharacterJoint charHand = other.GetComponent<CharacterJoint>();
+                charHand = other.GetComponent<CharacterJoint>();
                 if (charHand.connectedBody == null)
                 {
-                    gameObject.layer = other.gameObject.layer;
+                    foreach (GameObject h in hit)
+                    {
+                        h.layer = 12;
+                    }
                     held = true;
                     forces = false;
                     navAgent.enabled = false;
@@ -62,5 +66,18 @@ public class NPCController : MonoBehaviour {
                 }
             }
         }
+    }
+
+    public void Launch()
+    {
+        charHand = null;
+        rb.AddForce(Vector3.up * hitForce);
+        rb.AddForce(Vector3.forward * hitForce);
+        foreach (GameObject h in hit)
+        {
+            h.layer = 4;
+        }
+        held = false;
+        forces = true;
     }
 }

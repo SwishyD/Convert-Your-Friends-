@@ -72,6 +72,11 @@ public class CharacterInput : MonoBehaviour
     {
         return !special && wasSpecial;
     }
+
+    public bool HoldSpecial()
+    {
+       return special && !wasSpecial;
+    }
     //
     public bool HoldFire()
     {
