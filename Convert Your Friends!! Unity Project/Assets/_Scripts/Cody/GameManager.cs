@@ -24,6 +24,11 @@ public class GameManager : MonoBehaviour {
     float totalTime = 60;
     public Text timerText;
 
+    //End of Game UI//
+    public Text p1WinText;
+    public Text p2WinText;
+    public Text drawText;
+
     public static GameManager instance = null;
 
     void Awake()
@@ -81,8 +86,7 @@ public class GameManager : MonoBehaviour {
     //When a player gets an NPC into their pit//
     public void P1Goal()
     {
-        p1Score++;
-        Debug.Log(p1Score);
+        p1Score++;        
     }
     public void P2Goal()
     {
@@ -115,7 +119,7 @@ public class GameManager : MonoBehaviour {
     //For when the Timer reaches 0//
     void RoundEnd()
     {
-        SceneManager.LoadScene("CodySandBox");
+        
 
         if(p1Score > p2Score)
         {
@@ -129,18 +133,29 @@ public class GameManager : MonoBehaviour {
         {
             Draw();
         }
+
+        StartCoroutine(EndGame());
     }
 
     void Player1Win()
     {
-
+        Time.timeScale = 0.1f;
+        p1WinText.enabled = true;
     }
     void Player2Win()
     {
-
+        Time.timeScale = 0.1f;
+        p2WinText.enabled = true;
     }
     void Draw()
     {
+        Time.timeScale = 0.1f;
+        drawText.enabled = true;
+    }
 
+    IEnumerator EndGame()
+    {
+        yield return new WaitForSeconds(5);
+        SceneManager.LoadScene("MainMenu");
     }
 }

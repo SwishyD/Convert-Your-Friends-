@@ -18,7 +18,7 @@ public class GoalTrigger : MonoBehaviour {
     private void OnTriggerEnter(Collider col)
     { 
         //When an NPC gets pushed into a pit//
-        if(col.gameObject.tag == "NPC" && player1Goal && !killBox)
+        if(col.gameObject.tag == "NPCHitbox" && player1Goal && !killBox)
         {
 
             for (int i = 0; i < p1Particles.Length; i++)
@@ -29,7 +29,7 @@ public class GoalTrigger : MonoBehaviour {
             GameManager.instance.P1Goal();
             NpcRes(col);
         }
-        if (col.gameObject.tag == "NPC" && !player1Goal && !killBox)
+        if (col.gameObject.tag == "NPCHitbox" && !player1Goal && !killBox)
         {
             for (int i = 0; i < p2Particles.Length; i++)
             {
@@ -41,7 +41,7 @@ public class GoalTrigger : MonoBehaviour {
         }
 
         //If players fall into pits//
-        if(col.gameObject.tag == "Player1" && !player1Goal && !killBox)
+        if(col.gameObject.tag == "P1Hitbox" && !player1Goal && !killBox)
         {
             for (int i = 0; i < p2Particles.Length; i++)
             {
@@ -50,7 +50,7 @@ public class GoalTrigger : MonoBehaviour {
             }
             GameManager.instance.Player2Sacrifice();
         }
-        if (col.gameObject.tag == "Player1" && player1Goal && !killBox)
+        if (col.gameObject.tag == "P1Hitbox" && player1Goal && !killBox)
         {
             for (int i = 0; i < p1Particles.Length; i++)
             {
@@ -59,7 +59,7 @@ public class GoalTrigger : MonoBehaviour {
             }
             GameManager.instance.RespawnP1();
         }
-        if (col.gameObject.tag == "Player2" && player1Goal && !killBox)
+        if (col.gameObject.tag == "P2Hitbox" && player1Goal && !killBox)
         {
             for (int i = 0; i < p1Particles.Length; i++)
             {
@@ -68,7 +68,7 @@ public class GoalTrigger : MonoBehaviour {
             }
             GameManager.instance.Player1Sacrifice();
         }
-        if (col.gameObject.tag == "Player2" && !player1Goal && !killBox)
+        if (col.gameObject.tag == "P2Hitbox" && !player1Goal && !killBox)
         {
             for (int i = 0; i < p2Particles.Length; i++)
             {
@@ -78,15 +78,15 @@ public class GoalTrigger : MonoBehaviour {
             GameManager.instance.RespawnP2();
         }
 
-        if(col.gameObject.tag == "NPC" && killBox)
+        if(col.gameObject.tag == "NPCHitbox" && killBox)
         {
             NpcRes(col);
         }
-        if (col.gameObject.tag == "Player1" && killBox)
+        if (col.gameObject.tag == "P1Hitbox" && killBox)
         {
             GameManager.instance.RespawnP1();
         }
-        if (col.gameObject.tag == "Player2" && killBox)
+        if (col.gameObject.tag == "P2hitbox" && killBox)
         {
             GameManager.instance.RespawnP2();
         }
