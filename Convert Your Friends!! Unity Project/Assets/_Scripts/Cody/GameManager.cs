@@ -21,13 +21,19 @@ public class GameManager : MonoBehaviour {
    
     //Time//
     float currentTime;
-    float totalTime = 60;
+    float totalTime = 180f;
     public Text timerText;
 
     //End of Game UI//
     public Text p1WinText;
     public Text p2WinText;
     public Text drawText;
+
+    public GameObject NPCPrefab;
+    public Transform npcResPoint;
+    int spawned = 0;
+    float spawntimer = 0f;
+    float timeTospawn = 3f;
 
     public static GameManager instance = null;
 
@@ -54,8 +60,25 @@ public class GameManager : MonoBehaviour {
     {
         ManageTime();
         HandleScore();
+        
+
+        spawntimer += Time.deltaTime;
+        if(spawntimer > timeTospawn)
+        {
+            spawntimer = 0;
+            StartCoroutine(SpawnTime());
+        }
+       
 	}
 
+    
+
+    public void NPCSpawn()
+    {
+
+        GameObject clone;
+        clone = Instantiate(NPCPrefab, npcResPoint);
+    }
 
     //Controls the timer//
     void ManageTime()
@@ -157,5 +180,19 @@ public class GameManager : MonoBehaviour {
     {
         yield return new WaitForSeconds(5);
         SceneManager.LoadScene("MainMenu");
+    }
+
+    public IEnumerator SpawnTime()
+    {
+        if (spawned < 15)
+        {
+            yield return new WaitForSeconds(3);
+            spawned++;
+            NPCSpawn();
+        }
+        else
+        {
+            yield return null;
+        }
     }
 }
