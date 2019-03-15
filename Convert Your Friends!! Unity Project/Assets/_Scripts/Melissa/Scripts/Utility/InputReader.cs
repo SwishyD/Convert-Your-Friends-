@@ -7,8 +7,8 @@ public class InputReader : MonoBehaviour
     //
     static InputReader instance;
     //
-    static public KeyCode keyPlayer1Fire = KeyCode.T;
-    static public KeyCode keyPlayer2Fire = KeyCode.Comma;
+    static public KeyCode keyPlayer1Fire = KeyCode.LeftControl;
+    static public KeyCode keyPlayer2Fire = KeyCode.RightControl;
     static public KeyCode keyPlayer1Special = KeyCode.Y;
     static public KeyCode keyPlayer2Special = KeyCode.Period;
     static public KeyCode keyPlayer2Up = KeyCode.UpArrow;

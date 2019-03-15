@@ -19,6 +19,7 @@ public class NPCMovement : MonoBehaviour {
     public CharacterUpright[] otherUprights;
     public CharacterFaceDirection faceDirection;
     public Rigidbody[] feetBodies;
+    public ConstantForce conForce;
     public float maintainHeightStanding = 1;
     public float maintainHeightCrouching = 0.6f;
     //
@@ -29,6 +30,7 @@ public class NPCMovement : MonoBehaviour {
     protected bool jumpAnticipation = false;
     protected bool inAir = false;
     public bool ragdoll;
+    public bool grabbed;
     public float jumpForce = 100;
     public float jumpForwardForce = 50;
     public float jumpDownForce = 250;
@@ -52,6 +54,7 @@ public class NPCMovement : MonoBehaviour {
         nav.updatePosition = false;
         nav.updateRotation = false;
         ragdoll = false;
+        grabbed = false;
         SetPath();
     }
     //
@@ -70,7 +73,11 @@ public class NPCMovement : MonoBehaviour {
                 h.desiredHeight = Mathf.Lerp(h.desiredHeight, 0.2f, Time.deltaTime * 3);
             }
         }
-        if (ragdoll)
+        if (grabbed) {
+        
+            CharacterGrabbed();
+        }
+        else if (ragdoll)
         {
             //***********************************  CROUCHING BEFORE JUMP **********************
             //
@@ -202,6 +209,7 @@ public class NPCMovement : MonoBehaviour {
         faceDirection.enabled = true;
         legs.enabled = true;
         chestUpright.enabled = true;
+        conForce.enabled = true;
         //
         // *** DO A SMALL HOP UPWARD TO START GETTING UP ***
         //
@@ -235,6 +243,7 @@ public class NPCMovement : MonoBehaviour {
         legs.enabled = false;
         chestUpright.enabled = false;
         faceDirection.enabled = false;
+        conForce.enabled = false;
         //
         // ****  SOMETIMES THE FACEPLANT IS GOING TO HAVE MORE FORCE ON IT, BECAUSE RANDOM STRENGTH FACEPLANTS ARE COOL ***
         //
@@ -260,6 +269,20 @@ public class NPCMovement : MonoBehaviour {
         legs.enabled = false;
         chestUpright.enabled = false;
         faceDirection.enabled = false;
+        conForce.enabled = false;
+    }
+
+    private void CharacterGrabbed()
+    {
+        maintainHeight.enabled = false;
+        jumpCounter = 0;
+        jumpAnticipation = false;
+        ragdoll = false;
+        inAir = false;
+        legs.enabled = false;
+        chestUpright.enabled = false;
+        faceDirection.enabled = false;
+        conForce.enabled = false;
     }
     //
     void FixedUpdate()

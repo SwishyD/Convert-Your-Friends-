@@ -4,13 +4,16 @@ using UnityEngine;
 
 public class P1Hit : MonoBehaviour {
 
-    public float hitForce;
+    float hitForce;
+    float tentacleForce;
     Rigidbody rb;
+    public CharacterMovement charMove;
 
     void Start()
     {
         rb = GetComponent<Rigidbody>();
-        hitForce = 10000;
+        hitForce = 500;
+        tentacleForce = 5000;
     }
 
     // Update is called once per frame
@@ -26,6 +29,14 @@ public class P1Hit : MonoBehaviour {
             Vector3 dir = col.contacts[0].point - transform.position;
             dir = -dir.normalized;
             col.gameObject.GetComponent<Rigidbody>().AddForce(dir * hitForce);
+        }
+        if (col.gameObject.tag == "Tentacle")
+        {
+            Vector3 dir = col.contacts[0].point - transform.position;
+            dir = -dir.normalized;
+            charMove.ragdoll = true;
+            rb.AddForce(dir * tentacleForce);
+            rb.AddForce(Vector3.up * tentacleForce);
         }
     }
 }

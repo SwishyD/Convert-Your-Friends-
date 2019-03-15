@@ -26,6 +26,7 @@ public class CharacterMovement : MonoBehaviour
     public float airTimeDelay = 2;
     protected bool jumpAnticipation = false;
     protected bool inAir = false;
+    public bool ragdoll;
     public float jumpForce = 100;
     public float jumpForwardForce = 50;
     public float jumpDownForce = 250;
@@ -35,6 +36,7 @@ public class CharacterMovement : MonoBehaviour
     void Start()
     {
         input = GetComponent<CharacterInput>();
+        ragdoll = false;
     }
     //
     void Update()
@@ -55,6 +57,12 @@ public class CharacterMovement : MonoBehaviour
             {
                 h.desiredHeight = Mathf.Lerp(h.desiredHeight, 0.2f, Time.deltaTime * 3);
             }
+        }
+        if (ragdoll)
+        {
+            //***********************************  CROUCHING BEFORE JUMP **********************
+            //
+            StartRagdoll();
         }
         if (jumpAnticipation)
         {
@@ -201,6 +209,18 @@ public class CharacterMovement : MonoBehaviour
         jumpAnticipation = true;
         maintainHeight.desiredHeight = maintainHeightCrouching;
         jumpCounter = 0;
+    }
+
+    private void StartRagdoll()
+    {
+        maintainHeight.enabled = false;
+        jumpCounter = 0;
+        jumpAnticipation = false;
+        ragdoll = false;
+        inAir = true;
+        legs.enabled = false;
+        chestUpright.enabled = false;
+        faceDirection.enabled = false;
     }
     //
     void FixedUpdate()

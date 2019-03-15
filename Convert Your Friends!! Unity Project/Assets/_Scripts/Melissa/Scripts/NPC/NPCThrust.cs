@@ -7,6 +7,9 @@ public class NPCThrust : MonoBehaviour {
     float thrust = 20;
     private void OnTriggerStay(Collider col)
     {
-        col.GetComponent<Rigidbody>().AddRelativeForce(Vector3.forward * thrust);
+        if (col.tag == "NPC")
+        {
+            col.GetComponent<Rigidbody>().AddRelativeForce(Vector3.forward * thrust);
+        }
     }
 }
