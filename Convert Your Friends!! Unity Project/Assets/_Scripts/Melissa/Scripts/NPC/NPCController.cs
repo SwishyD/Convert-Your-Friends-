@@ -11,6 +11,7 @@ public class NPCController : MonoBehaviour {
     bool forces;
     bool held;
     public NavMeshAgent navAgent;
+    public GameObject[] hit;
     
 
     void Start () {
@@ -25,7 +26,7 @@ public class NPCController : MonoBehaviour {
         
 	}
 
-    /*private void OnCollisionEnter(Collision col)
+    private void OnCollisionEnter(Collision col)
     {
         if (!held)
         {
@@ -41,7 +42,7 @@ public class NPCController : MonoBehaviour {
 
             }
         }
-    }*/
+    }
 
     private void OnTriggerEnter(Collider other)
     {
@@ -52,6 +53,7 @@ public class NPCController : MonoBehaviour {
                 CharacterJoint charHand = other.GetComponent<CharacterJoint>();
                 if (charHand.connectedBody == null)
                 {
+                    gameObject.layer = other.gameObject.layer;
                     held = true;
                     forces = false;
                     navAgent.enabled = false;
