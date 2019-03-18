@@ -34,8 +34,10 @@ public class CharacterMovement : MonoBehaviour
     protected float getUpCounter = 0;
 
     public ConstantForce armGrabForce;
-    public Rigidbody armRb;
+    public Rigidbody leftArmRb;
+    public Rigidbody rightArmRb;
     public NPCController heldNPC;
+    public int shoveForce;
     //
     void Start()
     {
@@ -55,11 +57,12 @@ public class CharacterMovement : MonoBehaviour
         }
         if (input.PressSpecial())
         {
-            CharacterGrab();
+            //CharacterGrab();
+            Shove();
         }
         if (input.ReleaseSpecial())
         {
-            armGrabForce.enabled = false;
+            //armGrabForce.enabled = false;
         }
         else
         {
@@ -245,6 +248,12 @@ public class CharacterMovement : MonoBehaviour
     private void CharacterGrab()
     {
         armGrabForce.enabled = true;
+    }
+
+    private void Shove()
+    {
+        leftArmRb.AddForce(currentFacing * shoveForce);
+        rightArmRb.AddForce(currentFacing * shoveForce);
     }
     //
     void FixedUpdate()

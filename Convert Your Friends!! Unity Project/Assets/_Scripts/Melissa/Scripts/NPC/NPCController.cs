@@ -31,7 +31,7 @@ public class NPCController : MonoBehaviour {
     {
         if (!held)
         {
-            if ((col.gameObject.tag == "Player1" || col.gameObject.tag == "Player2" || col.gameObject.tag == "Tentacle") && forces)
+            if ((col.gameObject.tag == "Tentacle") && forces)
             {
 
                 //Vector3 dir = col.contacts[0].point - transform.position;
@@ -47,7 +47,14 @@ public class NPCController : MonoBehaviour {
 
     private void OnTriggerEnter(Collider other)
     {
-        if (!held)
+
+        if(other.tag == "Player1" || other.tag == "Player2")
+        {
+            npcMove.ragdoll = true;
+            rb.AddForce(Vector3.up * hitForce);
+            rb.AddForce(other.gameObject.transform.forward * hitForce);
+        }
+        /*else if (!held)
         {
             if (other.tag == "HandJoint")
             {
@@ -65,7 +72,7 @@ public class NPCController : MonoBehaviour {
                     charHand.connectedBody = rb;
                 }
             }
-        }
+        }*/
     }
 
     public void Launch()
