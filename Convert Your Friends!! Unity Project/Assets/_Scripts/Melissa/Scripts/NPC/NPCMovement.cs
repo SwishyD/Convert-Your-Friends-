@@ -43,7 +43,7 @@ public class NPCMovement : MonoBehaviour {
     Vector3[] path;
     int currentPathPos;
     public Transform npcHips;
-    public Rigidbody hipsRB;
+    //public Rigidbody hipsRB;
     float distRemaining;
     float destinationTimer;
     //
@@ -261,6 +261,7 @@ public class NPCMovement : MonoBehaviour {
 
     private void StartRagdoll()
     {
+        Debug.Log("ragdoll");
         maintainHeight.enabled = false;
         jumpCounter = 0;
         jumpAnticipation = false;
@@ -274,6 +275,7 @@ public class NPCMovement : MonoBehaviour {
 
     private void CharacterGrabbed()
     {
+        Debug.Log("grabbed");
         maintainHeight.enabled = false;
         jumpCounter = 0;
         jumpAnticipation = false;

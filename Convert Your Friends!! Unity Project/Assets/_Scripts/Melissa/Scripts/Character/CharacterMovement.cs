@@ -32,11 +32,19 @@ public class CharacterMovement : MonoBehaviour
     public float jumpDownForce = 250;
     protected float facePlantM = 1;
     protected float getUpCounter = 0;
+
+    public ConstantForce armGrabForce;
+    public Rigidbody leftArmRb;
+    public Rigidbody rightArmRb;
+    public NPCController heldNPC;
+    public int shoveForce;
     //
     void Start()
     {
         input = GetComponent<CharacterInput>();
         ragdoll = false;
+        armGrabForce.enabled = false;
+
     }
     //
     void Update()
@@ -46,6 +54,19 @@ public class CharacterMovement : MonoBehaviour
         {
             if(!inAir)
             StartJumpAnticipation();
+        }
+        if (input.PressSpecial())
+        {
+            //CharacterGrab();
+            Shove();
+        }
+        if (input.ReleaseSpecial())
+        {
+            //armGrabForce.enabled = false;
+        }
+        else
+        {
+           // armGrabForce.enabled = false;
         }
         if (getUpCounter > 0)
         {
@@ -89,6 +110,7 @@ public class CharacterMovement : MonoBehaviour
         {
             //***********************************  STANDING ON GROUND **********************
             //           
+            
             inputDirection = Vector3.zero;
             if (input.HoldRight())
             {
@@ -221,6 +243,17 @@ public class CharacterMovement : MonoBehaviour
         legs.enabled = false;
         chestUpright.enabled = false;
         faceDirection.enabled = false;
+    }
+
+    private void CharacterGrab()
+    {
+        armGrabForce.enabled = true;
+    }
+
+    private void Shove()
+    {
+        leftArmRb.AddForce(currentFacing * shoveForce);
+        rightArmRb.AddForce(currentFacing * shoveForce);
     }
     //
     void FixedUpdate()

@@ -9,8 +9,8 @@ public class InputReader : MonoBehaviour
     //
     static public KeyCode keyPlayer1Fire = KeyCode.LeftControl;
     static public KeyCode keyPlayer2Fire = KeyCode.RightControl;
-    static public KeyCode keyPlayer1Special = KeyCode.Y;
-    static public KeyCode keyPlayer2Special = KeyCode.Period;
+    static public KeyCode keyPlayer1Special = KeyCode.E;
+    static public KeyCode keyPlayer2Special = KeyCode.RightShift;
     static public KeyCode keyPlayer2Up = KeyCode.UpArrow;
     static public KeyCode keyPlayer1Up = KeyCode.W;
     static public KeyCode keyPlayer2Down = KeyCode.DownArrow;

@@ -12,6 +12,7 @@ public class NPCController : MonoBehaviour {
     bool held;
     public NavMeshAgent navAgent;
     public GameObject[] hit;
+    CharacterJoint charHand;
     
 
     void Start () {
@@ -30,7 +31,7 @@ public class NPCController : MonoBehaviour {
     {
         if (!held)
         {
-            if ((col.gameObject.tag == "Player1" || col.gameObject.tag == "Player2" || col.gameObject.tag == "Tentacle") && forces)
+            if ((col.gameObject.tag == "Tentacle") && forces)
             {
 
                 //Vector3 dir = col.contacts[0].point - transform.position;
@@ -46,14 +47,24 @@ public class NPCController : MonoBehaviour {
 
     private void OnTriggerEnter(Collider other)
     {
-        if (!held)
+
+        if(other.tag == "Player1" || other.tag == "Player2")
+        {
+            npcMove.ragdoll = true;
+            rb.AddForce(Vector3.up * hitForce);
+            rb.AddForce(other.gameObject.transform.forward * hitForce);
+        }
+        /*else if (!held)
         {
             if (other.tag == "HandJoint")
             {
-                CharacterJoint charHand = other.GetComponent<CharacterJoint>();
+                charHand = other.GetComponent<CharacterJoint>();
                 if (charHand.connectedBody == null)
                 {
-                    gameObject.layer = other.gameObject.layer;
+                    foreach (GameObject h in hit)
+                    {
+                        h.layer = 12;
+                    }
                     held = true;
                     forces = false;
                     navAgent.enabled = false;
@@ -61,6 +72,19 @@ public class NPCController : MonoBehaviour {
                     charHand.connectedBody = rb;
                 }
             }
+        }*/
+    }
+
+    public void Launch()
+    {
+        charHand = null;
+        rb.AddForce(Vector3.up * hitForce);
+        rb.AddForce(Vector3.forward * hitForce);
+        foreach (GameObject h in hit)
+        {
+            h.layer = 4;
         }
+        held = false;
+        forces = true;
     }
 }
