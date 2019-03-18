@@ -8,12 +8,10 @@ public class GoalTrigger : MonoBehaviour {
 
     public bool player1Goal;
     public bool killBox;
-
-    public NPCMovement npcMove;
-
+        
     public GameObject[] p1Particles;
     public GameObject[] p2Particles;
-    public Transform npcResPoint;
+    
 
     private void OnTriggerEnter(Collider col)
     { 
@@ -95,7 +93,6 @@ public class GoalTrigger : MonoBehaviour {
     }
     public void NpcRes(Collider col)
     {
-        col.gameObject.GetComponent<NPCMovement>().ragdoll = true;
-        col.transform.position = npcResPoint.position;
+        Destroy(col.transform.parent.gameObject.transform.parent.gameObject);        
     }
 }
