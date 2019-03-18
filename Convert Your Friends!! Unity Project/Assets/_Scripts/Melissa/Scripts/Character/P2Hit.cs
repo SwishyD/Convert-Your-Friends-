@@ -13,7 +13,7 @@ public class P2Hit : MonoBehaviour {
     {
         rb = GetComponent<Rigidbody>();
         hitForce = 500;
-        tentacleForce = 5000;
+        tentacleForce = 1000;
     }
 
     // Update is called once per frame
