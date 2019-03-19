@@ -5,7 +5,8 @@ using UnityEngine.AI;
 
 public class NPCController : MonoBehaviour {
 
-    float hitForce;
+    float tentacleHitForce;
+    float playerHitForce;
     Rigidbody rb;
     public NPCMovement npcMove;
     bool forces;
@@ -17,7 +18,8 @@ public class NPCController : MonoBehaviour {
 
     void Start () {
         rb = GetComponent<Rigidbody>();
-        hitForce = 3000;
+        playerHitForce = 1000;
+        tentacleHitForce = 3000;
         forces = true;
         held = false;
     }
@@ -38,8 +40,8 @@ public class NPCController : MonoBehaviour {
                 //dir = -dir.normalized;
                 npcMove.ragdoll = true;
                 //rb.AddForce(dir * hitForce);
-                rb.AddForce(Vector3.up * hitForce);
-                rb.AddForce(col.gameObject.transform.forward * hitForce);
+                rb.AddForce(Vector3.up * tentacleHitForce);
+                rb.AddForce(col.gameObject.transform.forward * tentacleHitForce);
 
             }
         }
@@ -51,8 +53,8 @@ public class NPCController : MonoBehaviour {
         if(other.tag == "Player1" || other.tag == "Player2")
         {
             npcMove.ragdoll = true;
-            rb.AddForce(Vector3.up * hitForce);
-            rb.AddForce(other.gameObject.transform.forward * hitForce);
+            rb.AddForce(Vector3.up * playerHitForce);
+            rb.AddForce(other.gameObject.transform.forward * playerHitForce);
         }
         /*else if (!held)
         {
@@ -78,8 +80,8 @@ public class NPCController : MonoBehaviour {
     public void Launch()
     {
         charHand = null;
-        rb.AddForce(Vector3.up * hitForce);
-        rb.AddForce(Vector3.forward * hitForce);
+        rb.AddForce(Vector3.up * playerHitForce);
+        rb.AddForce(Vector3.forward * playerHitForce);
         foreach (GameObject h in hit)
         {
             h.layer = 4;
