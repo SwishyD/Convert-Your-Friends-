@@ -25,9 +25,9 @@ public class GameManager : MonoBehaviour {
     public Text timerText;
 
     //End of Game UI//
-    public Text p1WinText;
-    public Text p2WinText;
-    public Text drawText;
+    public GameObject p1WinText;
+    public GameObject p2WinText;
+    public GameObject drawText;
 
     public GameObject NPCPrefab;
     public Transform npcResPoint;
@@ -119,13 +119,13 @@ public class GameManager : MonoBehaviour {
     //When P1 Gets P2 into P1s Pit//
     public void Player1Sacrifice()
     {
-        p1Score += 5;
+        p1Score += 3;
         RespawnP2();
     }
     //Vice Versa from above//
     public void Player2Sacrifice()
     {
-        p1Score += 5;
+        p1Score += 3;
         RespawnP1();
     }
 
@@ -163,17 +163,17 @@ public class GameManager : MonoBehaviour {
     void Player1Win()
     {
         Time.timeScale = 0.1f;
-        p1WinText.enabled = true;
+        p1WinText.SetActive(true);
     }
     void Player2Win()
     {
         Time.timeScale = 0.1f;
-        p2WinText.enabled = true;
+        p2WinText.SetActive(true);
     }
     void Draw()
     {
         Time.timeScale = 0.1f;
-        drawText.enabled = true;
+        drawText.SetActive(true);
     }
 
     IEnumerator EndGame()
