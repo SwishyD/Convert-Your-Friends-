@@ -29,11 +29,14 @@ public class GameManager : MonoBehaviour {
     public GameObject p2WinText;
     public GameObject drawText;
 
+
+    //NPC Respawning//
     public GameObject NPCPrefab;
     public Transform npcResPoint;
     public int spawned = 0;
     float spawntimer = 0f;
     float timeTospawn = 3f;
+    public GameObject[] npcParticles;
 
     public static GameManager instance = null;
 
@@ -75,7 +78,10 @@ public class GameManager : MonoBehaviour {
 
     public void NPCSpawn()
     {
-
+        for (int i = 0; i < npcParticles.Length; i++)
+        {
+            npcParticles[i].GetComponent<ParticleSystem>().Play();            
+        }
         GameObject clone;
         clone = Instantiate(NPCPrefab, npcResPoint);
     }
@@ -109,33 +115,39 @@ public class GameManager : MonoBehaviour {
     //When a player gets an NPC into their pit//
     public void P1Goal()
     {
+        AudioManager.instance.Play("Explosion");
         p1Score++;        
     }
     public void P2Goal()
     {
+        AudioManager.instance.Play("Explosion");
         p2Score++;
     }
 
     //When P1 Gets P2 into P1s Pit//
     public void Player1Sacrifice()
     {
+        AudioManager.instance.Play("Explosion");
         p1Score += 3;
         RespawnP2();
     }
     //Vice Versa from above//
     public void Player2Sacrifice()
     {
-        p1Score += 3;
+        AudioManager.instance.Play("Explosion");
+        p2Score += 3;
         RespawnP1();
     }
 
     //When a player goes out of bounds or into a pit//
     public void RespawnP1()
     {
+        AudioManager.instance.Play("Explosion");
         p1.transform.position = p1ResPoint.position;
     }
     public void RespawnP2()
     {
+        AudioManager.instance.Play("Explosion");
         p2.transform.position = p2ResPoint.position;
     }
 

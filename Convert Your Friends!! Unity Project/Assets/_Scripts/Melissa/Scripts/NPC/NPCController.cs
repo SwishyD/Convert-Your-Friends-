@@ -18,8 +18,8 @@ public class NPCController : MonoBehaviour {
 
     void Start () {
         rb = GetComponent<Rigidbody>();
-        playerHitForce = 1000;
-        tentacleHitForce = 3000;
+        playerHitForce = 1500;
+        tentacleHitForce = 2000;
         forces = true;
         held = false;
     }
@@ -55,6 +55,11 @@ public class NPCController : MonoBehaviour {
             npcMove.ragdoll = true;
             rb.AddForce(Vector3.up * playerHitForce);
             rb.AddForce(other.gameObject.transform.forward * playerHitForce);
+        }
+        else if (other.tag == "Foot")
+        {
+            npcMove.ragdoll = true; rb.AddForce(Vector3.up * 100);
+            rb.AddForce(other.gameObject.transform.forward * 500);
         }
         /*else if (!held)
         {

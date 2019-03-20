@@ -11,6 +11,7 @@ public class GoalTrigger : MonoBehaviour {
         
     public GameObject[] p1Particles;
     public GameObject[] p2Particles;
+     
     
 
     private void OnTriggerEnter(Collider col)

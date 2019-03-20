@@ -12,7 +12,7 @@ public class P1Hit : MonoBehaviour {
     void Start()
     {
         rb = GetComponent<Rigidbody>();
-        hitForce = 500;
+        hitForce = 1000;
         tentacleForce = 1000;
     }
 
