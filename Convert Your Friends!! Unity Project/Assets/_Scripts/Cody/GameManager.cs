@@ -22,7 +22,7 @@ public class GameManager : MonoBehaviour {
     //Time//
     float currentTime;
     float totalTime = 180f;
-    public Text timerText;
+    public GameObject timerUI;
 
     //End of Game UI//
     public GameObject p1WinText;
@@ -31,7 +31,7 @@ public class GameManager : MonoBehaviour {
 
     public GameObject NPCPrefab;
     public Transform npcResPoint;
-    int spawned = 0;
+    public int spawned = 0;
     float spawntimer = 0f;
     float timeTospawn = 3f;
 
@@ -83,7 +83,7 @@ public class GameManager : MonoBehaviour {
     //Controls the timer//
     void ManageTime()
     {
-        timerText.text = "" + Mathf.RoundToInt(currentTime);
+        timerUI.GetComponent<Image>().fillAmount = currentTime / totalTime;
         currentTime -= Time.deltaTime;
 
         if(currentTime > totalTime)
@@ -178,7 +178,7 @@ public class GameManager : MonoBehaviour {
 
     IEnumerator EndGame()
     {
-        yield return new WaitForSeconds(5);
+        yield return new WaitForSeconds(1);
         SceneManager.LoadScene("MainMenu");
     }
 

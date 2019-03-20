@@ -93,6 +93,7 @@ public class GoalTrigger : MonoBehaviour {
     }
     public void NpcRes(Collider col)
     {
-        Destroy(col.transform.parent.gameObject.transform.parent.gameObject);        
+        Destroy(col.transform.parent.gameObject.transform.parent.gameObject);
+        GameManager.instance.spawned--;
     }
 }
