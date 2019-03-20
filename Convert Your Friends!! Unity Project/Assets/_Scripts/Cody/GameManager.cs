@@ -22,16 +22,16 @@ public class GameManager : MonoBehaviour {
     //Time//
     float currentTime;
     float totalTime = 180f;
-    public Text timerText;
+    public GameObject timerUI;
 
     //End of Game UI//
-    public Text p1WinText;
-    public Text p2WinText;
-    public Text drawText;
+    public GameObject p1WinText;
+    public GameObject p2WinText;
+    public GameObject drawText;
 
     public GameObject NPCPrefab;
     public Transform npcResPoint;
-    int spawned = 0;
+    public int spawned = 0;
     float spawntimer = 0f;
     float timeTospawn = 3f;
 
@@ -83,7 +83,7 @@ public class GameManager : MonoBehaviour {
     //Controls the timer//
     void ManageTime()
     {
-        timerText.text = "" + Mathf.RoundToInt(currentTime);
+        timerUI.GetComponent<Image>().fillAmount = currentTime / totalTime;
         currentTime -= Time.deltaTime;
 
         if(currentTime > totalTime)
@@ -119,13 +119,13 @@ public class GameManager : MonoBehaviour {
     //When P1 Gets P2 into P1s Pit//
     public void Player1Sacrifice()
     {
-        p1Score += 5;
+        p1Score += 3;
         RespawnP2();
     }
     //Vice Versa from above//
     public void Player2Sacrifice()
     {
-        p1Score += 5;
+        p1Score += 3;
         RespawnP1();
     }
 
@@ -163,22 +163,22 @@ public class GameManager : MonoBehaviour {
     void Player1Win()
     {
         Time.timeScale = 0.1f;
-        p1WinText.enabled = true;
+        p1WinText.SetActive(true);
     }
     void Player2Win()
     {
         Time.timeScale = 0.1f;
-        p2WinText.enabled = true;
+        p2WinText.SetActive(true);
     }
     void Draw()
     {
         Time.timeScale = 0.1f;
-        drawText.enabled = true;
+        drawText.SetActive(true);
     }
 
     IEnumerator EndGame()
     {
-        yield return new WaitForSeconds(5);
+        yield return new WaitForSeconds(1);
         SceneManager.LoadScene("MainMenu");
     }
 
