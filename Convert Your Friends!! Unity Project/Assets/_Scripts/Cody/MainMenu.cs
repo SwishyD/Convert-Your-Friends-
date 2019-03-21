@@ -12,11 +12,13 @@ public class MainMenu : MonoBehaviour {
 
     public void StartGame()
     {
+        AudioManager.instance.Play("UIPress");
         SceneManager.LoadScene(1);
     }
 
    public void ControlScreen()
     {
+        AudioManager.instance.Play("UIPress");
         controls.SetActive(true);
         quitConfirm.SetActive(false);
         menu.SetActive(false);
@@ -24,6 +26,7 @@ public class MainMenu : MonoBehaviour {
 
     public void QuitConfirm()
     {
+        AudioManager.instance.Play("UIPress");
         controls.SetActive(false);
         quitConfirm.SetActive(true);
         menu.SetActive(false);
@@ -31,7 +34,9 @@ public class MainMenu : MonoBehaviour {
 
    public void QuitGame()
     {
+        AudioManager.instance.Play("UIPress");
         Application.Quit();
+
     }
 
     public void Back()
@@ -39,5 +44,12 @@ public class MainMenu : MonoBehaviour {
         controls.SetActive(false);
         quitConfirm.SetActive(false);
         menu.SetActive(true);
+        AudioManager.instance.Play("UIPress");
     }
+
+    public void ButtonHover()
+    {
+        AudioManager.instance.Play("UIHover");
+    }
+    
 }

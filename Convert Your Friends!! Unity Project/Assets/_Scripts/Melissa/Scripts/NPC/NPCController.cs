@@ -42,6 +42,7 @@ public class NPCController : MonoBehaviour {
                 //rb.AddForce(dir * hitForce);
                 rb.AddForce(Vector3.up * tentacleHitForce);
                 rb.AddForce(col.gameObject.transform.forward * tentacleHitForce);
+                
 
             }
         }
@@ -55,11 +56,13 @@ public class NPCController : MonoBehaviour {
             npcMove.ragdoll = true;
             rb.AddForce(Vector3.up * playerHitForce);
             rb.AddForce(other.gameObject.transform.forward * playerHitForce);
+            AudioManager.instance.Play("Thud");
         }
         else if (other.tag == "Foot")
         {
             npcMove.ragdoll = true; rb.AddForce(Vector3.up * 100);
             rb.AddForce(other.gameObject.transform.forward * 500);
+            AudioManager.instance.Play("Thud");
         }
         /*else if (!held)
         {

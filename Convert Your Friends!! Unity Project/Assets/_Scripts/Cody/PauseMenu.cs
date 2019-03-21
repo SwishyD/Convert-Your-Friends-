@@ -22,10 +22,12 @@ public class PauseMenu : MonoBehaviour {
         if (Input.GetKeyDown(KeyCode.Escape) && !gameIsPaused)
         {
             PauseGame();
+            AudioManager.instance.Play("UIPress");
         }
         else if (Input.GetKeyDown(KeyCode.Escape) && gameIsPaused)
         {
             Resume();
+            AudioManager.instance.Play("UIPress");
         }
     }
 
@@ -52,6 +54,7 @@ public class PauseMenu : MonoBehaviour {
         controls.SetActive(true);
         menuConfirm.SetActive(false);
         pause.SetActive(false);
+        AudioManager.instance.Play("UIPress");
     }
 
     public void MenuConfirm()
@@ -59,19 +62,28 @@ public class PauseMenu : MonoBehaviour {
         controls.SetActive(false);
         menuConfirm.SetActive(true);
         pause.SetActive(false);
+        AudioManager.instance.Play("UIPress");
     }
 
     public void MainMenu()
     {
+        AudioManager.instance.Play("UIPress");
         Time.timeScale = 1;
         SceneManager.LoadScene(0);
+
     }
 
     public void Back()
     {
+        AudioManager.instance.Play("UIPress");
         controls.SetActive(false);
         menuConfirm.SetActive(false);
         pause.SetActive(true);
+    }
+
+    public void ButtonHover()
+    {
+        AudioManager.instance.Play("UIHover");
     }
     
 }

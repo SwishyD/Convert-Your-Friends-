@@ -7,6 +7,8 @@ using UnityEngine.Audio;
 [System.Serializable]
 public class Sound {
 
+    public AudioMixerGroup mix;
+
     public string name;
 
     public bool loop;

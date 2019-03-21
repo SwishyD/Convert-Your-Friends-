@@ -21,7 +21,7 @@ public class GameManager : MonoBehaviour {
    
     //Time//
     float currentTime;
-    float totalTime = 180f;
+    float totalTime = 20f;
     public GameObject timerUI;
 
     //End of Game UI//
@@ -38,6 +38,9 @@ public class GameManager : MonoBehaviour {
     float timeTospawn = 3f;
     public GameObject[] npcParticles;
 
+    //Sound//
+    bool isPlaying = false;
+
     public static GameManager instance = null;
 
     void Awake()
@@ -51,6 +54,8 @@ public class GameManager : MonoBehaviour {
 
     void Start()
     {
+        Time.timeScale = 1f;
+        isPlaying = false;
         RespawnP1();
         RespawnP2();
         p1Score = 0;
@@ -159,14 +164,30 @@ public class GameManager : MonoBehaviour {
         if(p1Score > p2Score)
         {
             Player1Win();
+            if (!isPlaying)
+            {
+                AudioManager.instance.Play("Win");
+                isPlaying = true;
+            }
         }
         else if(p2Score > p1Score)
         {
             Player2Win();
+            if (!isPlaying)
+            {
+                AudioManager.instance.Play("Win");
+                isPlaying = true;
+            }
         }
         else if(p1Score == p2Score)
         {
             Draw();
+            if (!isPlaying)
+            {
+                AudioManager.instance.Play("Draw");
+                isPlaying = true;
+            }
+
         }
 
         StartCoroutine(EndGame());
