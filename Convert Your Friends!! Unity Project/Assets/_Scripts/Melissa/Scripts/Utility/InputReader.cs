@@ -10,7 +10,7 @@ public class InputReader : MonoBehaviour
     static public KeyCode keyPlayer1Fire = KeyCode.Space;
     static public KeyCode keyPlayer2Fire = KeyCode.Keypad0;
     static public KeyCode keyPlayer1Special = KeyCode.B;
-    static public KeyCode keyPlayer2Special = KeyCode.Keypad1;
+    static public KeyCode keyPlayer2Special = KeyCode.Keypad2;
     static public KeyCode keyPlayer2Up = KeyCode.UpArrow;
     static public KeyCode keyPlayer1Up = KeyCode.W;
     static public KeyCode keyPlayer2Down = KeyCode.DownArrow;

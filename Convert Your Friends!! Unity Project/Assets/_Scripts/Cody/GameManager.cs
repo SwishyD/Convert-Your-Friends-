@@ -21,7 +21,7 @@ public class GameManager : MonoBehaviour {
    
     //Time//
     float currentTime;
-    float totalTime = 20f;
+    float totalTime = 180f;
     public GameObject timerUI;
 
     //End of Game UI//
