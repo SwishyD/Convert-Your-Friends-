@@ -9,11 +9,16 @@ public class MainMenu : MonoBehaviour {
     public GameObject controls;
     public GameObject menu;
     public GameObject quitConfirm;
+    public GameObject levelSelect;
+    public LevelLoader levelLoader;
 
     public void StartGame()
     {
         AudioManager.instance.Play("UIPress");
-        SceneManager.LoadScene(1);
+        controls.SetActive(false);
+        quitConfirm.SetActive(false);
+        menu.SetActive(false);
+        levelSelect.SetActive(true);
     }
 
    public void ControlScreen()
@@ -22,6 +27,7 @@ public class MainMenu : MonoBehaviour {
         controls.SetActive(true);
         quitConfirm.SetActive(false);
         menu.SetActive(false);
+        levelSelect.SetActive(false);
     }
 
     public void QuitConfirm()
@@ -30,6 +36,7 @@ public class MainMenu : MonoBehaviour {
         controls.SetActive(false);
         quitConfirm.SetActive(true);
         menu.SetActive(false);
+        levelSelect.SetActive(false);
     }
 
    public void QuitGame()
@@ -44,6 +51,7 @@ public class MainMenu : MonoBehaviour {
         controls.SetActive(false);
         quitConfirm.SetActive(false);
         menu.SetActive(true);
+        levelSelect.SetActive(false);
         AudioManager.instance.Play("UIPress");
     }
 
@@ -51,5 +59,17 @@ public class MainMenu : MonoBehaviour {
     {
         AudioManager.instance.Play("UIHover");
     }
-    
+
+    public void Pit()
+    {
+        AudioManager.instance.Play("UIPress");
+        levelLoader.LoadLevel(1);
+    }
+
+    public void Island()
+    {
+        AudioManager.instance.Play("UIPress");
+        levelLoader.LoadLevel(2);
+    }
+
 }

@@ -85,7 +85,7 @@ public class GoalTrigger : MonoBehaviour {
         {
             GameManager.instance.RespawnP1();
         }
-        if (col.gameObject.tag == "P2hitbox" && killBox)
+        if (col.gameObject.tag == "P2Hitbox" && killBox)
         {
             GameManager.instance.RespawnP2();
         }
