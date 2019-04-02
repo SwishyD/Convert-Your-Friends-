@@ -114,9 +114,9 @@ public class InputReader : MonoBehaviour
         if (IsBlocked)
             return;
         //
-        fire = fire || (Input.GetButton("X" + controllerIDString));
+        fire = fire || (Input.GetButton("A" + controllerIDString));
         jump = jump || Input.GetButtonDown("A" + controllerIDString);
-        special = special || Input.GetButtonDown("B" + controllerIDString);
+        special = special || Input.GetButtonDown("X" + controllerIDString);
         //
         up = up || Input.GetAxisRaw("DPad_YAxis" + controllerIDString) > 0.25f || Input.GetAxisRaw("L_YAxis" + controllerIDString) < -0.25f;
         down = down || Input.GetAxisRaw("DPad_YAxis" + controllerIDString) < -0.25f || Input.GetAxisRaw("L_YAxis" + controllerIDString) > 0.25f;
